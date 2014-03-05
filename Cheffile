@@ -6,4 +6,6 @@ site "http://community.opscode.com/api/v1"
 cookbook "ubuntu"
 cookbook "yum"
 
+cookbook "package_installer"
+
 cookbook "flapjack", :path => "."

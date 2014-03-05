@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: default
+# Recipe:: _redis
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,14 +24,5 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-install_method = node["flapjack"]["install_method"]
-case install_method
-when "gem"
-  include_recipe "flapjack::_gem"
-else
-  raise "Unsupported Flapjack install method: #{install_method}"
-end
-
-if node["flapjack"]["install_redis"]
-  include_recipe "flapjack::_redis"
-end
+include_recipe "redisio::install"
+include_recipe "redisio::enable"

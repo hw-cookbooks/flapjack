@@ -14,3 +14,11 @@ end
 describe command('ruby -e \'require "flapjack"\'') do
   it { should return_exit_status 0 }
 end
+
+describe process("redis-server") do
+  it { should be_running }
+end
+
+describe port(6379) do
+  it { should be_listening }
+end
