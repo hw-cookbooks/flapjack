@@ -28,6 +28,8 @@ if node["flapjack"]["install_ruby"]
   include_recipe "ruby_installer"
 end
 
+include_recipe "build-essential"
+
 gem_package "flapjack" do
   version node["flapjack"]["version"]
 end
