@@ -7,10 +7,16 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
+    run_list:
+      - recipe[ubuntu]
   - name: centos-6.4
+    run_list:
+      - recipe[yum]
 
 suites:
   - name: default
     run_list:
-      - recipe[flapjack::default]
+      - recipe[flapjack]
     attributes:
+      ruby_installer:
+        method: source

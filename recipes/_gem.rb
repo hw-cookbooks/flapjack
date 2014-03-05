@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: default
+# Recipe:: _gem
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,10 +24,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-install_method = node["flapjack"]["install_method"]
-case install_method
-when "gem"
-  include_recipe "flapjack::_gem"
-else
-  raise "Unsupported Flapjack install method: #{install_method}"
+if node["flapjack"]["install_ruby"]
+  include_recipe "ruby_installer"
+end
+
+gem_package "flapjack" do
+  version node["flapjack"]["version"]
 end
