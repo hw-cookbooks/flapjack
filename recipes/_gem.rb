@@ -32,4 +32,7 @@ end
 
 gem_package "flapjack" do
   version node["flapjack"]["version"]
+  gem_binary lazy {
+    File.join(node["flapjack"]["ruby_bin_dir"] || node["languages"]["ruby"]["bin_dir"], "gem")
+  }
 end

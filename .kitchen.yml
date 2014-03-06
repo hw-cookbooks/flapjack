@@ -3,7 +3,7 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_zero
+  name: chef_solo
 
 platforms:
   - name: ubuntu-12.04
@@ -13,12 +13,22 @@ platforms:
     run_list:
       - recipe[yum]
       - recipe[yum-epel]
+    attributes:
+      package_installer:
+        packages:
+          which: {}
 
 suites:
   - name: default
     run_list:
+      - recipe[package_installer]
       - recipe[flapjack]
     attributes:
+      package_installer:
+        packages:
+          net-tools: {}
       ruby_installer:
         method: source
         source_version: 2.0.0-p451
+      flapjack:
+        ruby_bin_dir: /usr/local/bin

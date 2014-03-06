@@ -7,7 +7,7 @@ include Serverspec::Helper::DetectOS
 
 RSpec.configure do |c|
   c.before :all do
-    c.path = '/sbin:/usr/sbin'
+    c.path = '/usr/local/bin:/sbin:/usr/sbin'
   end
 end
 
@@ -21,4 +21,16 @@ end
 
 describe port(6379) do
   it { should be_listening }
+end
+
+describe file("/etc/flapjack") do
+  it { should be_directory }
+end
+
+describe file("/etc/flapjack/flapjack-config.yml") do
+  it { should be_file }
+end
+
+describe file("/etc/flapjack/flapjack-config.yml") do
+  its(:content) { should match /smtp_config/ }
 end
