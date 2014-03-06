@@ -24,10 +24,13 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+include_recipe "flapjack::_rest_client"
+
 install_method = node["flapjack"]["install_method"]
 case install_method
 when "gem"
   include_recipe "flapjack::_gem"
+  include_recipe "flapjack::_user"
 else
   raise "Unsupported Flapjack install method: #{install_method}"
 end
@@ -35,3 +38,5 @@ end
 if node["flapjack"]["install_redis"]
   include_recipe "flapjack::_redis"
 end
+
+include_recipe "flapjack::_config"

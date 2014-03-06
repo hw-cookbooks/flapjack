@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: _gem
+# Recipe:: _rest_client
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,12 +24,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "build-essential"
-
-if node["flapjack"]["install_ruby"]
-  include_recipe "ruby_installer"
+r = chef_gem "rest-client" do
+  version node["flapjack"]["rest_client"]["version"]
+  action :nothing
 end
+r.run_action(:install)
 
-gem_package "flapjack" do
-  version node["flapjack"]["version"]
-end
+Gem.clear_paths

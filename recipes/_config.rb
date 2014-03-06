@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: _gem
+# Recipe:: _config
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,12 +24,26 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "build-essential"
-
-if node["flapjack"]["install_ruby"]
-  include_recipe "ruby_installer"
+directory "/etc/flapjack" do
+  recursive true
+  owner node["flapjack"]["user"]
+  group node["flapjack"]["group"]
+  mode 0755
 end
 
-gem_package "flapjack" do
-  version node["flapjack"]["version"]
+gateway_items = data_bag("flapjack_gateways").map { |item|
+  Chef::EncryptedDataBagItem.load("flapjack_gateways", item).to_hash
+}
+gateways = Hash[gateway_items.map { |g| [g.delete("id"), g] }]
+
+environment = Flapjack.to_hash(node["flapjack"]["config"])
+environment["gateways"] = gateways
+
+config = {node["flapjack"]["environment"] => environment}
+
+file "/etc/flapjack/flapjack-config.yml" do
+  content config.to_yaml
+  owner node["flapjack"]["user"]
+  group node["flapjack"]["group"]
+  mode 0750
 end
