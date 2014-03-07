@@ -9,8 +9,12 @@ module Flapjack
     end
   end
 
-  def contacts
-    get("contacts")
+  def contact_exists?(id)
+    begin
+      get("contacts/#{id}").code == 200
+    rescue RestClient::Exception
+      false
+    end
   end
 
   def create_contact(info, id=nil)
@@ -26,6 +30,23 @@ module Flapjack
       delete("contacts/#{id}")
     rescue RestClient::Exception => error
       Chef::Log.warn "Encountered an error while deleting Flapjack contact: #{id} - #{error}"
+    end
+  end
+
+  def contact_notification_rules(id)
+    response = get("contacts/#{id}/notification_rules")
+    JSON.parse(response.body)
+  end
+
+  def create_notification_rule(info)
+    post("notification_rules", info)
+  end
+
+  def delete_notification_rule(id)
+    begin
+      delete("notification_rules/#{id}")
+    rescue RestClient::Exception => error
+      Chef::Log.warn "Encountered an error while deleting Flapjack notification rule: #{id} - #{error}"
     end
   end
 

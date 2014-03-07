@@ -24,15 +24,14 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-contact_items = data_bag("flapjack_contacts").map { |item|
+contacts = data_bag("flapjack_contacts").map { |item|
   data_bag_item("flapjack_contacts", item).to_hash
 }
-contacts = Hash[contact_items.map { |item| [item.delete("id"), item] }]
 
-contacts.each do |id, data|
-  resource_action = data.delete("action") || "create"
-  flapjack_contact id do
-    info data
+contacts.each do |contact|
+  resource_action = contact.delete("action") || "create"
+  flapjack_contact contact["id"] do
+    info contact
     action resource_action.to_sym
   end
 end

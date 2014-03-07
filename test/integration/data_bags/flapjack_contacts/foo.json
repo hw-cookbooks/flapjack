@@ -4,11 +4,6 @@
     "last_name": "Lovelace",
     "email": "ada@example.com",
     "media": {
-        "sms": {
-            "address": "+61412345678",
-            "interval": "3600",
-            "rollup_threshold": "5"
-        },
         "email": {
             "address": "ada@example.com",
             "interval": "7200",
@@ -19,5 +14,22 @@
     "tags": [
         "legend",
         "first computer programmer"
+    ],
+    "notification_rules": [
+        {
+            "tags": [],
+            "entities": [],
+            "time_restrictions": [],
+            "unknown_media": null,
+            "warning_media": [
+                "email"
+            ],
+            "critical_media": [
+                "email"
+            ],
+            "unknown_blackhole": false,
+            "warning_blackhole": false,
+            "critical_blackhole": false
+        }
     ]
 }
