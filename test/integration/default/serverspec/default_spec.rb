@@ -27,10 +27,26 @@ describe file("/etc/flapjack") do
   it { should be_directory }
 end
 
-describe file("/etc/flapjack/flapjack-config.yml") do
+describe file("/etc/flapjack/flapjack_config.yaml") do
   it { should be_file }
 end
 
-describe file("/etc/flapjack/flapjack-config.yml") do
+describe file("/etc/flapjack/flapjack_config.yaml") do
   its(:content) { should match /smtp_config/ }
+end
+
+describe "Flapjack API" do
+  let(:api_uri) { "http://localhost:5081" }
+
+  it "returns a contact 'foo'" do
+    uri = URI("#{api_uri}/contacts/foo")
+    response = Net::HTTP.get_response(uri)
+    expect(response.code.to_i).to eq(200)
+  end
+
+  it "does not return a contact 'bar'" do
+    uri = URI("#{api_uri}/contacts/bar")
+    response = Net::HTTP.get_response(uri)
+    expect(response.code.to_i).to eq(403)
+  end
 end
