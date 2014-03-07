@@ -3,5 +3,5 @@ vendor/
 tmp/
 *.lock
 .kitchen/
-.kitchen.local.yml
+.kitchen.local.yml*
 .librarian/

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: _config
+# Recipe:: _services
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,38 +24,16 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-directory "/etc/flapjack" do
-  recursive true
-  owner node["flapjack"]["user"]
-  group node["flapjack"]["group"]
-  mode 0755
-end
+include_recipe "runit"
 
-%w[
-  pid_file
-  log_file
-].each do |option|
-  directory File.dirname(node["flapjack"]["config"][option]) do
-    recursive true
-    owner node["flapjack"]["user"]
-    group node["flapjack"]["group"]
-    mode 0755
+node["flapjack"]["services"].each do |service|
+  runit_service service do
+    options lazy {
+      {
+        :user => node["flapjack"]["user"],
+        :ruby_bin_dir => node["flapjack"]["ruby_bin_dir"] || node["languages"]["ruby"]["bin_dir"]
+      }
+    }
+    subscribes :restart, "file[/etc/flapjack/flapjack_config.yaml]"
   end
-end
-
-gateway_items = data_bag("flapjack_gateways").map { |item|
-  Chef::EncryptedDataBagItem.load("flapjack_gateways", item).to_hash
-}
-gateways = Hash[gateway_items.map { |item| [item.delete("id"), item] }]
-
-environment = Flapjack.to_hash(node["flapjack"]["config"])
-environment["gateways"] = gateways
-
-config = {node["flapjack"]["environment"] => environment}
-
-file "/etc/flapjack/flapjack_config.yaml" do
-  content config.to_yaml
-  owner node["flapjack"]["user"]
-  group node["flapjack"]["group"]
-  mode 0750
 end

@@ -40,3 +40,4 @@ if node["flapjack"]["install_redis"]
 end
 
 include_recipe "flapjack::_config"
+include_recipe "flapjack::_services"

@@ -9,3 +9,5 @@ default["flapjack"]["install_redis"] = true
 
 default["flapjack"]["user"] = "flapjack"
 default["flapjack"]["group"] = "flapjack"
+
+default["flapjack"]["services"] = ["flapjack"]

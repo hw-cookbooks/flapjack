@@ -30,9 +30,16 @@ if node["flapjack"]["install_ruby"]
   include_recipe "ruby_installer"
 end
 
+gem_bin = Chef::DelayedEvaluator.new {
+  File.join(node["flapjack"]["ruby_bin_dir"] || node["languages"]["ruby"]["bin_dir"], "gem")
+}
+
+gem_package "cookiejar" do
+  version "0.3.0"
+  gem_binary gem_bin
+end
+
 gem_package "flapjack" do
   version node["flapjack"]["version"]
-  gem_binary lazy {
-    File.join(node["flapjack"]["ruby_bin_dir"] || node["languages"]["ruby"]["bin_dir"], "gem")
-  }
+  gem_binary gem_bin
 end
