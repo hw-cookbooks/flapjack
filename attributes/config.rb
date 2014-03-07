@@ -2,7 +2,7 @@ default["flapjack"]["environment"] = "production"
 
 default["flapjack"]["config"]["pid_file"] = "/var/run/flapjack/flapjack.pid"
 default["flapjack"]["config"]["log_file"] = "/var/log/flapjack/flapjack.log"
-default["flapjack"]["config"]["daemonize"] = "yes"
+default["flapjack"]["config"]["daemonize"] = "no"
 default["flapjack"]["config"]["logger"]["level"] = "INFO"
 default["flapjack"]["config"]["logger"]["syslog_errors"] = "yes"
 
@@ -29,3 +29,7 @@ default["flapjack"]["config"]["notifier"]["notification_log_file"] = "/var/log/f
 default["flapjack"]["config"]["notifier"]["default_contact_timezone"] = "UTC"
 default["flapjack"]["config"]["notifier"]["logger"]["level"] = "INFO"
 default["flapjack"]["config"]["notifier"]["logger"]["syslog_errors"] = "yes"
+
+default["flapjack"]["config"]["gateways"]["api"]["enabled"] = "yes"
+default["flapjack"]["config"]["gateways"]["api"]["port"] = 5081
+default["flapjack"]["config"]["gateways"]["api"]["logger"]["level"] = "INFO"

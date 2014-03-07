@@ -1,0 +1,24 @@
+{
+    "id": "bar",
+    "first_name": "Ada",
+    "last_name": "Lovelace",
+    "email": "ada@example.com",
+    "media": {
+        "sms": {
+            "address": "+61412345678",
+            "interval": "3600",
+            "rollup_threshold": "5"
+        },
+        "email": {
+            "address": "ada@example.com",
+            "interval": "7200",
+            "rollup_threshold": null
+        }
+    },
+    "timezone": "Europe/London",
+    "tags": [
+        "legend",
+        "first computer programmer"
+    ],
+    "action": "delete"
+}

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: default
+# Recipe:: _contacts
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,21 +24,15 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "flapjack::_rest_client"
+contact_items = data_bag("flapjack_contacts").map { |item|
+  data_bag_item("flapjack_contacts", item).to_hash
+}
+contacts = Hash[contact_items.map { |item| [item.delete("id"), item] }]
 
-install_method = node["flapjack"]["install_method"]
-case install_method
-when "gem"
-  include_recipe "flapjack::_gem"
-  include_recipe "flapjack::_user"
-else
-  raise "Unsupported Flapjack install method: #{install_method}"
+contacts.each do |id, data|
+  resource_action = data.delete("action") || "create"
+  flapjack_contact id do
+    info data
+    action resource_action.to_sym
+  end
 end
-
-if node["flapjack"]["install_redis"]
-  include_recipe "flapjack::_redis"
-end
-
-include_recipe "flapjack::_config"
-include_recipe "flapjack::_services"
-include_recipe "flapjack::_contacts"
