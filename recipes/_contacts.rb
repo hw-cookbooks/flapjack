@@ -24,9 +24,20 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-contacts = data_bag("flapjack_contacts").map { |item|
-  data_bag_item("flapjack_contacts", item).to_hash
+data_bag_name = node["flapjack"]["contacts"]["data_bag"]["name"]
+
+contact_items = data_bag(data_bag_name).map { |item|
+  data_bag_item(data_bag_name, item).to_hash
 }
+
+contact_namespace = node["flapjack"]["contacts"]["data_bag"]["namespace"]
+
+contacts = case contact_namespace
+when nil
+  contact_items
+else
+  contact_items.map { |item| item[contact_namespace] }.compact
+end
 
 contacts.each do |contact|
   resource_action = contact.delete("action") || "create"

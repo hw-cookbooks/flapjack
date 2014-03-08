@@ -1,19 +1,18 @@
 include Flapjack
 
+def notification_rules_changed?(previous, current)
+  previous.map { |r| r.reject { |k, v| %w[id contact_id].include?(k) } } != current
+end
+
 action :create do
   info = new_resource.info
   create_contact(info, new_resource.name)
   if info["notification_rules"].is_a?(Array)
-    previous_notification_rules = contact_notification_rules(new_resource.name).map do |rule|
-      rule.delete("id")
-      rule
-    end
-    notification_rules = info["notification_rules"].map do |rule|
-      rule["contact_id"] = new_resource.name
-      rule
-    end
-    unless previous_notification_rules == notification_rules
+    previous_notification_rules = contact_notification_rules(new_resource.name)
+    notification_rules = info["notification_rules"]
+    if notification_rules_changed?(previous_notification_rules, notification_rules)
       notification_rules.each do |rule|
+        rule["contact_id"] = new_resource.name
         create_notification_rule(rule)
       end
       previous_notification_rules.each do |rule|
