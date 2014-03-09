@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: flapjack
+# Cookbook Name:: flapjack_test
 # Recipe:: default
 #
 # Copyright 2014, Heavy Water Operations, LLC.
@@ -24,23 +24,20 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "flapjack::_rest_client"
+packages = node["package_installer"]["packages"].to_hash.merge("net-tools" => {})
 
-install_method = node["flapjack"]["install_method"]
-case install_method
-when "gem"
-  include_recipe "flapjack::_gem"
-when "package"
-  include_recipe "flapjack::_package"
-else
-  raise "Unsupported Flapjack install method: #{install_method}"
+case node["platform_family"]
+when "debian"
+  if platform?("ubuntu")
+    include_recipe "ubuntu"
+  else
+    include_recipe "apt"
+  end
+when "rhel"
+  include_recipe "yum-epel"
+  packages.merge!("which" => {})
 end
 
-if node["flapjack"]["install_redis"]
-  include_recipe "flapjack::_redis"
-end
+node.override["package_installer"]["packages"] = packages
 
-include_recipe "flapjack::_user"
-include_recipe "flapjack::_config"
-include_recipe "flapjack::_services"
-include_recipe "flapjack::_contacts"
+include_recipe "package_installer"

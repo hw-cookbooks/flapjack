@@ -7,28 +7,24 @@ provisioner:
 
 platforms:
   - name: ubuntu-12.04
-    run_list:
-      - recipe[ubuntu]
   - name: centos-6.4
-    run_list:
-      - recipe[yum]
-      - recipe[yum-epel]
-    attributes:
-      package_installer:
-        packages:
-          which: {}
 
 suites:
   - name: default
     run_list:
-      - recipe[package_installer]
+      - recipe[flapjack_test]
       - recipe[flapjack]
     attributes:
-      package_installer:
-        packages:
-          net-tools: {}
       ruby_installer:
         method: source
         source_version: 2.0.0-p451
       flapjack:
         ruby_bin_dir: /usr/local/bin
+  - name: package
+    run_list:
+      - recipe[flapjack_test]
+      - recipe[flapjack]
+    attributes:
+      flapjack:
+        install_method: package
+        version: 0.8.5+20140209152603-1.ubuntu.12.04

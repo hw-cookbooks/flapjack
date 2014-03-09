@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: default
+# Recipe:: _package
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,23 +24,30 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "flapjack::_rest_client"
+platform_family = node["platform_family"]
+case platform_family
+when "debian"
+  apt_repository "flapjack" do
+    uri node["flapjack"]["apt_repo_uri"]
+    distribution node["lsb"]["codename"]
+    components ["main"]
+  end
 
-install_method = node["flapjack"]["install_method"]
-case install_method
-when "gem"
-  include_recipe "flapjack::_gem"
-when "package"
-  include_recipe "flapjack::_package"
+  deb_file = "/var/cache/apt/archives/flapjack_" + node["flapjack"]["version"]
+  tmp_folder = "/tmp/flapjack"
+
+  execute "extract_flapjack" do
+    command "dpkg-deb --extract #{deb_file}* #{tmp_folder} && cp -r #{tmp_folder}/* /"
+    action :nothing
+  end
+
+  package "flapjack" do
+    version node["flapjack"]["version"]
+    options "--force-yes -d"
+    notifies :run, "execute[extract_flapjack]", :immediately
+  end
 else
-  raise "Unsupported Flapjack install method: #{install_method}"
+  raise "A Flapjack package is not available for this platform family: #{platform_family}"
 end
 
-if node["flapjack"]["install_redis"]
-  include_recipe "flapjack::_redis"
-end
-
-include_recipe "flapjack::_user"
-include_recipe "flapjack::_config"
-include_recipe "flapjack::_services"
-include_recipe "flapjack::_contacts"
+node.override["flapjack"]["ruby_bin_dir"] = node["flapjack"]["ruby_bin_dir"] || "/opt/flapjack/bin"
