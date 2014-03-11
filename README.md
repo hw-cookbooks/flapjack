@@ -38,5 +38,47 @@ Note: Package install method does not use the package scripts.
 
 `node["flapjack"]["environment"]` - The Flapjack environment, the default is `"production"`.
 
-`node["flapjack"]["config"]*` - Flapjack config options, please refer to https://github.com/flpjck/flapjack/wiki/USING#wiki-configuring-components
+`node["flapjack"]["config"][*]` - Flapjack configuration options, please refer to https://github.com/flpjck/flapjack/wiki/USING#wiki-configuring-components
 for more information.
+
+## Recipes
+
+### default
+
+Installs and configures Flapjack, using the following recipes.
+
+### _config
+
+Manages Flapjack configuration, `/etc/flapjack/flapjack_config.yaml`, by default, this recipe pulls gateways
+from the `flapjack_gateways` data bag, which can be changed by `node["flapjack"]["gateways"]["data_bag"]["name"]`.
+
+### _contacts
+
+Manages Flapjack contacts (create & delete), and their notification rules. By default, this recipe
+uses the `flapjack_contacts` data bag, however, you may use `node["flapjack"]["contacts"]["data_bag"]["name"]`
+and `node["flapjack"]["contacts"]["data_bag"]["namespace"]` to use a different data bag and namespace.
+The recipe uses the `flapjack_contact` resource (LWRP).
+
+### _gem
+
+Installs the Flapjack Ruby gem, optionally installing Ruby, using the `ruby_installer` cookbook.
+
+### _package
+
+Installs (extracts) the Flapjack package, currently only supported on ubuntu.
+
+### _redis
+
+Builds and installs Redis, using the `redisio` cookbook.
+
+### _rest_client
+
+Installs the `rest-client` Ruby gem.
+
+### _services
+
+Manages the runit supervised services specified in `node["flapjack"]["services"]`.
+
+### _user
+
+Manages the Flapjack user.
