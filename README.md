@@ -38,7 +38,7 @@ Install Redis.
 
 `node["flapjack"]["user"]`:
 
-User to run Flapjack as, default is `"flapjack"`
+User to run Flapjack as, the default is `"flapjack"`.
 
 `node["flapjack"]["group"]`:
 
@@ -59,3 +59,12 @@ Flapjack contacts data bag name.
 `node["flapjack"]["contacts"]["data_bag"]["namespace"]`:
 
 Flapjack contacts data bag item config namespace.
+
+`node["flapjack"]["environment"]`:
+
+The Flapjack environment, the default is `"production"`.
+
+`node["flapjack"]["config"]*`:
+
+Flapjack config options, please refer to https://github.com/flpjck/flapjack/wiki/USING#wiki-configuring-components
+for more information.
