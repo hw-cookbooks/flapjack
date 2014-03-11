@@ -71,7 +71,7 @@ Installs (extracts) the Flapjack package, currently only supported on ubuntu.
 
 Builds and installs Redis, using the `redisio` cookbook.
 
-### _rest_client
+### \_rest_client
 
 Installs the `rest-client` Ruby gem.
 
