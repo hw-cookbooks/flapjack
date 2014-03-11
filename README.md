@@ -10,61 +10,33 @@ Flapjack gateways and contacts (with notification rules) can be managed.
 
 ## Attributes
 
-`node["flapjack"]["install_method"]`:
-
-Flapjack installation method, `"gem"` or `"package"` (no rpm).
+`node["flapjack"]["install_method"]` - Flapjack installation method, `"gem"` or `"package"` (no rpm).
 
 Note: Package install method does not use the package scripts.
 
-`node["flapjack"]["version"]`:
+`node["flapjack"]["version"]` - Flapjack version (eg. gem: `"0.8.5"` or package: `"0.8.5+20140209152603-1.ubuntu.12.04"`).
 
-Flapjack version (eg. gem: `"0.8.5"` or package: `"0.8.5+20140209152603-1.ubuntu.12.04"`).
+`node["flapjack"]["apt_repo_uri"]` - Flapjack APT repository URI.
 
-`node["flapjack"]["apt_repo_uri"]`:
+`node["flapjack"]["rest_client"]["version"]` - Ruby Rest-Client library version (for the API library).
 
-Flapjack APT repository URI.
+`node["flapjack"]["install_ruby"]` - Install Ruby when using the `gem` installation method.
 
-`node["flapjack"]["rest_client"]["version"]`:
+`node["flapjack"]["install_redis"]` - Install Redis.
 
-Ruby Rest-Client library version (for the API library).
+`node["flapjack"]["user"]` - User to run Flapjack as, the default is `"flapjack"`.
 
-`node["flapjack"]["install_ruby"]`:
+`node["flapjack"]["group"]` - Flapjack user group.
 
-Install Ruby when using the `gem` installation method.
+`node["flapjack"]["services"]` - Flapjack services to run, currently only `["flapjack"]` is supported.
 
-`node["flapjack"]["install_redis"]`:
+`node["flapjack"]["gateways"]["data_bag"]["name"]` - Flapjack gateways data bag name.
 
-Install Redis.
+`node["flapjack"]["contacts"]["data_bag"]["name"]` - Flapjack contacts data bag name.
 
-`node["flapjack"]["user"]`:
+`node["flapjack"]["contacts"]["data_bag"]["namespace"]` - Flapjack contacts data bag item config namespace.
 
-User to run Flapjack as, the default is `"flapjack"`.
+`node["flapjack"]["environment"]` - The Flapjack environment, the default is `"production"`.
 
-`node["flapjack"]["group"]`:
-
-Flapjack user group.
-
-`node["flapjack"]["services"]`:
-
-Flapjack services to run, currently only `["flapjack"]` is supported.
-
-`node["flapjack"]["gateways"]["data_bag"]["name"]`:
-
-Flapjack gateways data bag name.
-
-`node["flapjack"]["contacts"]["data_bag"]["name"]`:
-
-Flapjack contacts data bag name.
-
-`node["flapjack"]["contacts"]["data_bag"]["namespace"]`:
-
-Flapjack contacts data bag item config namespace.
-
-`node["flapjack"]["environment"]`:
-
-The Flapjack environment, the default is `"production"`.
-
-`node["flapjack"]["config"]*`:
-
-Flapjack config options, please refer to https://github.com/flpjck/flapjack/wiki/USING#wiki-configuring-components
+`node["flapjack"]["config"]*` - Flapjack config options, please refer to https://github.com/flpjck/flapjack/wiki/USING#wiki-configuring-components
 for more information.
