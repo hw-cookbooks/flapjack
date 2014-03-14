@@ -3,4 +3,4 @@
 export PATH=<%= @options[:ruby_bin_dir] %>:$PATH
 
 exec 2>&1
-exec chpst -u <%= @options[:user] %> flapjack start
+exec chpst -u <%= @options[:user] %> flapjack start --no-daemonize
