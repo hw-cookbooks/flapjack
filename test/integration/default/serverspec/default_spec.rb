@@ -1,6 +1,7 @@
 require 'serverspec'
 require 'net/http'
 require 'uri'
+require 'json'
 
 include Serverspec::Helper::Exec
 include Serverspec::Helper::DetectOS
@@ -48,5 +49,14 @@ describe "Flapjack API" do
     uri = URI("#{api_uri}/contacts/bar")
     response = Net::HTTP.get_response(uri)
     expect(response.code.to_i).to eq(403)
+  end
+
+  it "returns an entity 'ALL'" do
+    uri = URI("#{api_uri}/entities")
+    response = Net::HTTP.get_response(uri)
+    expect(response.code.to_i).to eq(200)
+    entities = JSON.parse(response.body)
+    puts entities.inspect
+    expect(!!entities.detect {|entity| entity["id"] == "ALL"}).to be_true
   end
 end

@@ -46,3 +46,10 @@ contacts.each do |contact|
     action resource_action.to_sym
   end
 end
+
+if node["flapjack"]["contacts"]["manage_all_entity"]
+  contact_ids = contacts.map {|contact| contact["id"]}
+  flapjack_entity "ALL" do
+    info(:name => "ALL", :contacts => contact_ids)
+  end
+end

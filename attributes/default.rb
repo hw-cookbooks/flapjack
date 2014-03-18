@@ -18,3 +18,5 @@ default["flapjack"]["gateways"]["data_bag"]["name"] = "flapjack_gateways"
 
 default["flapjack"]["contacts"]["data_bag"]["name"] = "flapjack_contacts"
 default["flapjack"]["contacts"]["data_bag"]["namespace"] = nil
+
+default["flapjack"]["contacts"]["manage_all_entity"] = false

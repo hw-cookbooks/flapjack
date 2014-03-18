@@ -50,6 +50,14 @@ module Flapjack
     end
   end
 
+  def create_entity(info, id=nil)
+    info["id"] = id if id
+    raw_hash = {
+      "entities" => [info]
+    }
+    post("entities", raw_hash)
+  end
+
   private
 
   def api_uri

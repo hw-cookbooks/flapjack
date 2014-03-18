@@ -43,10 +43,4 @@ describe "Flapjack API" do
     response = Net::HTTP.get_response(uri)
     expect(response.code.to_i).to eq(200)
   end
-
-  it "does not return a contact 'bar'" do
-    uri = URI("#{api_uri}/contacts/bar")
-    response = Net::HTTP.get_response(uri)
-    expect(response.code.to_i).to eq(403)
-  end
 end
