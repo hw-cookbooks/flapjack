@@ -56,7 +56,6 @@ describe "Flapjack API" do
     response = Net::HTTP.get_response(uri)
     expect(response.code.to_i).to eq(200)
     entities = JSON.parse(response.body)
-    puts entities.inspect
     expect(!!entities.detect {|entity| entity["id"] == "ALL"}).to be_true
   end
 end
