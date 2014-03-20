@@ -26,6 +26,14 @@
 
 include_recipe "runit"
 
+ruby_block "flapjack_service_wait" do
+  block do
+    Chef::Log.info('Waiting for a Flapjack service to start ...')
+    sleep 3
+  end
+  action :nothing
+end
+
 node["flapjack"]["services"].each do |service|
   runit_service service do
     options lazy {
@@ -35,5 +43,6 @@ node["flapjack"]["services"].each do |service|
       }
     }
     subscribes :restart, "file[/etc/flapjack/flapjack_config.yaml]"
+    notifies :run, "ruby_block[flapjack_service_wait]", :immediately
   end
 end
