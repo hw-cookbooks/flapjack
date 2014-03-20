@@ -29,4 +29,4 @@ suites:
     attributes:
       flapjack:
         install_method: package
-        version: 0.8.5+20140209152603-1.ubuntu.12.04
+        version: 0.8.8+20140320045121-1.ubuntu.12.04
