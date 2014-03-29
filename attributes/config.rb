@@ -31,5 +31,6 @@ default["flapjack"]["config"]["notifier"]["logger"]["level"] = "INFO"
 default["flapjack"]["config"]["notifier"]["logger"]["syslog_errors"] = "yes"
 
 default["flapjack"]["config"]["gateways"]["api"]["enabled"] = "yes"
+default["flapjack"]["config"]["gateways"]["api"]["host"] = "127.0.0.1"
 default["flapjack"]["config"]["gateways"]["api"]["port"] = 5081
 default["flapjack"]["config"]["gateways"]["api"]["logger"]["level"] = "INFO"
