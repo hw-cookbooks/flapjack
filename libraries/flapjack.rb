@@ -19,8 +19,10 @@ module Flapjack
 
   def create_contact(info, id=nil)
     info["id"] = id if id
+    $flapjack_contacts ||= []
+    $flapjack_contacts << info
     raw_hash = {
-      "contacts" => [info]
+      "contacts" => $flapjack_contacts
     }
     post("contacts", raw_hash)
   end

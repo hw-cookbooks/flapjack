@@ -8,7 +8,7 @@ include Serverspec::Helper::DetectOS
 
 RSpec.configure do |c|
   c.before :all do
-    c.path = '/usr/local/bin:/sbin:/usr/sbin'
+    c.path = '/opt/chef/embedded/bin:/sbin:/usr/sbin'
   end
 end
 
@@ -49,6 +49,12 @@ describe "Flapjack API" do
     uri = URI("#{api_uri}/contacts/bar")
     response = Net::HTTP.get_response(uri)
     expect(response.code.to_i).to eq(403)
+  end
+
+  it "returns a contact 'baz'" do
+    uri = URI("#{api_uri}/contacts/baz")
+    response = Net::HTTP.get_response(uri)
+    expect(response.code.to_i).to eq(200)
   end
 
   it "returns an entity 'ALL'" do

@@ -15,11 +15,9 @@ suites:
       - recipe[flapjack_test]
       - recipe[flapjack]
     attributes:
-      ruby_installer:
-        method: source
-        source_version: 2.0.0-p451
       flapjack:
-        ruby_bin_dir: /usr/local/bin
+        install_ruby: false
+        ruby_bin_dir: /opt/chef/embedded/bin
         contacts:
           manage_all_entity: true
   - name: package

@@ -1,0 +1,35 @@
+{
+    "id": "baz",
+    "first_name": "Ada",
+    "last_name": "Lovelace",
+    "email": "ada@example.com",
+    "media": {
+        "email": {
+            "address": "ada@example.com",
+            "interval": "7200",
+            "rollup_threshold": null
+        }
+    },
+    "timezone": "Europe/London",
+    "tags": [
+        "legend",
+        "first computer programmer"
+    ],
+    "notification_rules": [
+        {
+            "tags": [],
+            "entities": [],
+            "time_restrictions": [],
+            "unknown_media": null,
+            "warning_media": [
+                "email"
+            ],
+            "critical_media": [
+                "email"
+            ],
+            "unknown_blackhole": false,
+            "warning_blackhole": false,
+            "critical_blackhole": false
+        }
+    ]
+}
