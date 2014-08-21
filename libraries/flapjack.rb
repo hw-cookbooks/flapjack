@@ -17,18 +17,18 @@ module Flapjack
     end
   end
 
+  def get_contact(id)
+    response = get("contacts/#{id}")
+    parsed = JSON.parse(response.body)
+    parsed["contacts"].first
+  end
+
   def create_contact(id, info)
     info["id"] ||= id
     raw_hash = {
       "contacts" => [info]
     }
     post("contacts", raw_hash)
-  end
-
-  def get_contact(id)
-    response = get("contacts/#{id}")
-    parsed = JSON.parse(response.body)
-    parsed["contacts"].first
   end
 
   def delete_contact(id)
@@ -39,10 +39,32 @@ module Flapjack
     end
   end
 
-  def update_notification_rules(id, info)
+  def get_contact_notification_rules_ids(id)
     contact = get_contact(id)
-    rules_id = contact["links"]["notification_rules"].first
-    patch("notification_rules/#{rules_id}", info)
+    contact["links"]["notification_rules"].join(",")
+  end
+
+  def get_contact_notification_rules(id)
+    rules_ids = get_contact_notification_rules_ids(id)
+    response = get("notification_rules/#{rules_ids}")
+    parsed = JSON.parse(response.body)
+    parsed["notification_rules"]
+  end
+
+  def delete_contact_notification_rules(id)
+    rules_ids = get_contact_notification_rules_ids(id)
+    begin
+      delete("notification_rules/#{rules_ids}")
+    rescue RestClient::Exception => error
+      Chef::Log.warn "Encountered an error while deleting Flapjack notification rules: #{rules_ids} - #{error}"
+    end
+  end
+
+  def create_contact_notification_rules(id, info)
+    raw_hash = {
+      "notification_rules" => info
+    }
+    post("contacts/#{id}/notification_rules", raw_hash)
   end
 
   def create_entity(id, info)
@@ -66,10 +88,6 @@ module Flapjack
 
   def post(resource, raw_hash)
     RestClient.post "#{api_uri}/#{resource}", raw_hash.to_json, :content_type => :json, :accept => :json
-  end
-
-  def patch(resource, raw_hash)
-    RestClient.patch "#{api_uri}/#{resource}", raw_hash.to_json, :content_type => "application/json-patch+json", :accept => :json
   end
 
   def delete(resource)
