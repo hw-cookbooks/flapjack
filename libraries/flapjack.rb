@@ -17,14 +17,18 @@ module Flapjack
     end
   end
 
-  def create_contact(info, id=nil)
-    info["id"] = id if id
-    $flapjack_contacts ||= []
-    $flapjack_contacts << info
+  def create_contact(id, info)
+    info["id"] ||= id
     raw_hash = {
-      "contacts" => $flapjack_contacts
+      "contacts" => [info]
     }
     post("contacts", raw_hash)
+  end
+
+  def get_contact(id)
+    response = get("contacts/#{id}")
+    parsed = JSON.parse(response.body)
+    parsed["contacts"].first
   end
 
   def delete_contact(id)
@@ -35,25 +39,14 @@ module Flapjack
     end
   end
 
-  def contact_notification_rules(id)
-    response = get("contacts/#{id}/notification_rules")
-    JSON.parse(response.body)
+  def update_notification_rules(id, info)
+    contact = get_contact(id)
+    rules_id = contact["links"]["notification_rules"].first
+    patch("notification_rules/#{rules_id}", info)
   end
 
-  def create_notification_rule(info)
-    post("notification_rules", info)
-  end
-
-  def delete_notification_rule(id)
-    begin
-      delete("notification_rules/#{id}")
-    rescue RestClient::Exception => error
-      Chef::Log.warn "Encountered an error while deleting Flapjack notification rule: #{id} - #{error}"
-    end
-  end
-
-  def create_entity(info, id=nil)
-    info["id"] = id if id
+  def create_entity(id, info)
+    info["id"] ||= id
     raw_hash = {
       "entities" => [info]
     }
@@ -63,7 +56,7 @@ module Flapjack
   private
 
   def api_uri
-    port = node["flapjack"]["config"]["gateways"]["api"]["port"]
+    port = node["flapjack"]["config"]["gateways"]["jsonapi"]["port"]
     "http://localhost:#{port}"
   end
 
@@ -73,6 +66,10 @@ module Flapjack
 
   def post(resource, raw_hash)
     RestClient.post "#{api_uri}/#{resource}", raw_hash.to_json, :content_type => :json, :accept => :json
+  end
+
+  def patch(resource, raw_hash)
+    RestClient.patch "#{api_uri}/#{resource}", raw_hash.to_json, :content_type => "application/json-patch+json", :accept => :json
   end
 
   def delete(resource)

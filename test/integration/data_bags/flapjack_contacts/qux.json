@@ -1,0 +1,34 @@
+{
+    "id": "qux",
+    "first_name": "Ada",
+    "last_name": "Lovelace",
+    "email": "ada@example.com",
+    "media": {
+        "email": {
+            "address": "ada@example.com",
+            "interval": "7200",
+            "rollup_threshold": null
+        }
+    },
+    "timezone": "Europe/London",
+    "tags": [
+        "clone"
+    ],
+    "notification_rules": [
+        {
+            "tags": [],
+            "entities": [],
+            "time_restrictions": [],
+            "unknown_media": null,
+            "warning_media": [
+                "email"
+            ],
+            "critical_media": [
+                "email"
+            ],
+            "unknown_blackhole": true,
+            "warning_blackhole": true,
+            "critical_blackhole": false
+        }
+    ]
+}
