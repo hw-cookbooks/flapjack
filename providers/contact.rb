@@ -13,8 +13,10 @@ def filter_hashes(raw_array, key_filter)
   raw_array.map { |raw_hash| filter_hash(raw_hash, key_filter) }
 end
 
-def flattened_comparison(object_one, object_two)
-  object_one.to_a.flatten.sort == object_two.to_a.flatten.sort
+def flattened_comparison(one, two)
+  flat_one = Array(one).map { |o| o.to_a.flatten }.flatten
+  flat_two = Array(two).map { |o| o.to_a.flatten }.flatten
+  (flat_one - flat_two) + (flat_two - flat_one) == []
 end
 
 def contact_info_changed?(previous, current)

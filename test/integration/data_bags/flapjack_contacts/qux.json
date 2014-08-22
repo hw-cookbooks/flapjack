@@ -26,6 +26,23 @@
             "critical_media": [
                 "email"
             ],
+            "unknown_blackhole": false,
+            "warning_blackhole": false,
+            "critical_blackhole": false
+        },
+        {
+            "tags": [],
+            "entities": [],
+            "time_restrictions": [],
+            "unknown_media":  [
+                "email"
+            ],
+            "warning_media": [
+                "email"
+            ],
+            "critical_media": [
+                "email"
+            ],
             "unknown_blackhole": true,
             "warning_blackhole": true,
             "critical_blackhole": false
