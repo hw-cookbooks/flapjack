@@ -1,0 +1,21 @@
+{
+  "id": "web",
+  "enabled": {
+    "encrypted_data": "liwbuplpCo5MvZBSbEIckLUrnhBqmM1FWrNKPWjoqLU=\n",
+    "iv": "uokPqR+dYYV85WJnoCzWHA==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "port": {
+    "encrypted_data": "YjzJUyWh2f0PL9abxG3VtoJYRCQoILv0AuiEJwPuHJI=\n",
+    "iv": "/SuBqwHSZl0RejjP8fC6cQ==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "logger": {
+    "encrypted_data": "XQ2WqB7nkDUuqS1FzDZIqjVZGJAS5dvdaBdZOvI2Dn6llfttUN6zmHeVEaUT\nh1WF\n",
+    "iv": "+ii+zeArFlJ+zbYeK5cVLw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
