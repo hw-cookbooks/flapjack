@@ -26,6 +26,17 @@ def contact_info_changed?(previous, current)
   !flattened_comparison(previous_filtered, current_filtered)
 end
 
+def media_changed?(previous, current)
+  key_filter = %w[id links]
+  previous_filtered = filter_hashes(previous, key_filter)
+  current_with_types = current.inject([]) do |media, (type, details)|
+    media << details.merge("type" => type)
+    media
+  end
+  current_filtered = filter_hashes(current_with_types, key_filter)
+  !flattened_comparison(previous_filtered, current_filtered)
+end
+
 def notification_rules_defaults
   {
     "tags" => nil,
@@ -55,7 +66,9 @@ end
 action :create do
   if contact_exists?(@contact_id)
     previous_contact_info = get_contact(@contact_id)
-    if contact_info_changed?(previous_contact_info, @contact_info)
+    previous_media = get_contact_media(@contact_id)
+    if contact_info_changed?(previous_contact_info, @contact_info) ||
+        media_changed?(previous_media, @contact_info["media"])
       Chef::Log.info("Flapjack contact updated: #{@contact_id}")
       delete_contact(@contact_id)
       create_contact(@contact_id, @contact_info)

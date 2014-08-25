@@ -39,6 +39,18 @@ module Flapjack
     end
   end
 
+  def get_contact_media_ids(id)
+    contact = get_contact(id)
+    contact["links"]["media"].join(",")
+  end
+
+  def get_contact_media(id)
+    media_ids = get_contact_media_ids(id)
+    response = get("media/#{media_ids}")
+    parsed = JSON.parse(response.body)
+    parsed["media"]
+  end
+
   def get_contact_notification_rules_ids(id)
     contact = get_contact(id)
     contact["links"]["notification_rules"].join(",")
