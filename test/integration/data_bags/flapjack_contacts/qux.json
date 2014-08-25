@@ -5,9 +5,9 @@
     "email": "ada@example.com",
     "media": {
         "email": {
-            "address": "ada@example.com",
-            "interval": "7200",
-            "rollup_threshold": null
+            "address": "adalovelace@example.com",
+            "interval": "3600",
+            "rollup_threshold": "2"
         }
     },
     "timezone": "Europe/London",

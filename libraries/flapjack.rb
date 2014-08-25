@@ -51,6 +51,22 @@ module Flapjack
     parsed["media"]
   end
 
+  def create_contact_media(id, info)
+    raw_hash = {
+      "media" => info
+    }
+    post("contacts/#{id}/media", raw_hash)
+  end
+
+  def delete_contact_media(id)
+    media_ids = get_contact_media_ids(id)
+    begin
+      delete("media/#{media_ids}")
+    rescue RestClient::Exception => error
+      Chef::Log.warn "Encountered an error while deleting Flapjack media: #{media_ids} - #{error}"
+    end
+  end
+
   def get_contact_notification_rules_ids(id)
     contact = get_contact(id)
     contact["links"]["notification_rules"].join(",")

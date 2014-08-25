@@ -29,11 +29,7 @@ end
 def media_changed?(previous, current)
   key_filter = %w[id links]
   previous_filtered = filter_hashes(previous, key_filter)
-  current_with_types = current.inject([]) do |media, (type, details)|
-    media << details.merge("type" => type)
-    media
-  end
-  current_filtered = filter_hashes(current_with_types, key_filter)
+  current_filtered = filter_hashes(current, key_filter)
   !flattened_comparison(previous_filtered, current_filtered)
 end
 
@@ -66,9 +62,7 @@ end
 action :create do
   if contact_exists?(@contact_id)
     previous_contact_info = get_contact(@contact_id)
-    previous_media = get_contact_media(@contact_id)
-    if contact_info_changed?(previous_contact_info, @contact_info) ||
-        media_changed?(previous_media, @contact_info["media"])
+    if contact_info_changed?(previous_contact_info, @contact_info)
       Chef::Log.info("Flapjack contact updated: #{@contact_id}")
       delete_contact(@contact_id)
       create_contact(@contact_id, @contact_info)
@@ -79,6 +73,20 @@ action :create do
     create_contact(@contact_id, @contact_info)
     new_resource.updated_by_last_action(true)
   end
+  raw_media = @contact_info["media"]
+  if raw_media.is_a?(Hash)
+    media = raw_media.inject([]) do |media, (type, details)|
+      media << details.merge("type" => type)
+      media
+    end
+    previous_media = get_contact_media(@contact_id)
+    if media_changed?(previous_media, media)
+      Chef::Log.info("Flapjack media changed for contact: #{@contact_id}")
+      delete_contact_media(@contact_id)
+      create_contact_media(@contact_id, media)
+      new_resource.updated_by_last_action(true)
+    end
+  end
   notification_rules = @contact_info["notification_rules"]
   if notification_rules.is_a?(Array)
     previous_notification_rules = get_contact_notification_rules(@contact_id)
@@ -86,8 +94,8 @@ action :create do
       Chef::Log.info("Flapjack notification rules changed for contact: #{@contact_id}")
       delete_contact_notification_rules(@contact_id)
       create_contact_notification_rules(@contact_id, notification_rules)
+      new_resource.updated_by_last_action(true)
     end
-    new_resource.updated_by_last_action(true)
   end
 end
 
