@@ -48,7 +48,7 @@ describe "Flapjack API" do
   it "does not return a contact 'bar'" do
     uri = URI("#{api_uri}/contacts/bar")
     response = Net::HTTP.get_response(uri)
-    expect(response.code.to_i).to eq(403)
+    expect(response.code.to_i).to eq(404)
   end
 
   it "returns a contact 'baz'" do
@@ -57,11 +57,15 @@ describe "Flapjack API" do
     expect(response.code.to_i).to eq(200)
   end
 
-  it "returns an entity 'ALL'" do
-    uri = URI("#{api_uri}/entities")
+  it "returns a contact 'qux'" do
+    uri = URI("#{api_uri}/contacts/qux")
     response = Net::HTTP.get_response(uri)
     expect(response.code.to_i).to eq(200)
-    entities = JSON.parse(response.body)
-    expect(!!entities.detect {|entity| entity["id"] == "ALL"}).to be_true
+  end
+
+  it "returns an entity 'ALL'" do
+    uri = URI("#{api_uri}/entities/ALL")
+    response = Net::HTTP.get_response(uri)
+    expect(response.code.to_i).to eq(200)
   end
 end

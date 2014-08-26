@@ -1,9 +1,9 @@
 default["flapjack"]["install_method"] = "gem" # "package" (no rpm)
-default["flapjack"]["version"] = "0.8.8"
+default["flapjack"]["version"] = "1.0.0"
 
 default["flapjack"]["apt_repo_uri"] = "http://packages.flapjack.io/deb"
 
-default["flapjack"]["rest_client"]["version"] = "1.6.7"
+default["flapjack"]["rest_client"]["version"] = "1.7.2"
 
 default["flapjack"]["install_ruby"] = true
 
