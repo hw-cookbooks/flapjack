@@ -15,6 +15,7 @@ default["flapjack"]["group"] = "flapjack"
 default["flapjack"]["services"] = ["flapjack"]
 
 default["flapjack"]["gateways"]["data_bag"]["name"] = "flapjack_gateways"
+default["flapjack"]["gateways"]["data_bag"]["chef_environment_specific"] = false
 
 default["flapjack"]["contacts"]["data_bag"]["name"] = "flapjack_contacts"
 default["flapjack"]["contacts"]["data_bag"]["namespace"] = nil

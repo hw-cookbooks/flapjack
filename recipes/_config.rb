@@ -44,12 +44,20 @@ end
 end
 
 data_bag_name = node["flapjack"]["gateways"]["data_bag"]["name"]
+chef_environment_specific = node["flapjack"]["gateways"]["data_bag"]["chef_environment_specific"]
 
 gateway_items = data_bag(data_bag_name).map { |item|
-  Chef::EncryptedDataBagItem.load(data_bag_name, item).to_hash
-}
+  gateway = Chef::EncryptedDataBagItem.load(data_bag_name, item).to_hash
+  config = chef_environment_specific ? gateway[node.chef_environment] : gateway
+  if config.nil?
+    next
+  else
+    config.delete("id")
+    {gateway["id"] => config}
+  end
+}.compact
 
-gateways = Hash[gateway_items.map { |item| [item.delete("id"), item] }]
+gateways = Hash[gateway_items]
 
 environment = Flapjack.to_hash(node["flapjack"]["config"])
 environment["gateways"].merge!(gateways)
