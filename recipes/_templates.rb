@@ -24,7 +24,7 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-template_directory = "/etc/flapjack/templates/email"
+template_directory = "/etc/flapjack/templates"
 
 directory template_directory do
   recursive true
@@ -34,8 +34,8 @@ directory template_directory do
 end
 
 %w(
-  alert.html.erb
-  alert.text.erb
+  email.alert.html.erb
+  email.text.erb
 ).each do | template |
   cookbook_file template do
     path File.join(template_directory, template)

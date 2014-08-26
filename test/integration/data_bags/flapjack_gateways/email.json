@@ -1,32 +1,32 @@
 {
   "id": "email",
   "enabled": {
-    "encrypted_data": "hdP4/LXRTGJ5Vzc8BQEf2uCrm4skpuWYzac9iD/S6cw=\n",
-    "iv": "gYbAVGsORmtm2Zf+MPFEkA==\n",
+    "encrypted_data": "IogUnW0tiDg46sQSlTuBjZnCpaS2jp548XILhQyhWOc=\n",
+    "iv": "n0dg7CzEKZE6EgWbzALzzQ==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "queue": {
-    "encrypted_data": "EK1BCbk1yuYPj2YvmwdNJ4JD5g+dZiUqb6eRyErojWYB+y0uQX769Yx0MMtR\nr1F2\n",
-    "iv": "FvZTtl1+lvKWzhQjDwJ1QQ==\n",
+    "encrypted_data": "qOZmgPtL3duNDK4SLw5aBlCUJZDQ2b2f6dSoMlOxr1ylOA9fCp3KapxgSNb8\nVqt8\n",
+    "iv": "aMblUzx91A9oxJV8H2hDyA==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "logger": {
-    "encrypted_data": "RWsmVmnuP1srhfzwcDNju5BL2o/hpsASm6eBFSzi0CEKmtDXIGRtueE8MEj+\nXIC5\n",
-    "iv": "qOFXQlqQy/YL8DP7k3JCIg==\n",
+    "encrypted_data": "L7uYOiTT/tktU54oLQv5ouzXzVUdOi7f52CZqrY5zNArJReiLC42N8l042jf\niFXr\n",
+    "iv": "xuuRpn3ofzqTEWHiRC61Uw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "templates": {
-    "encrypted_data": "6tHvY1ij+zOt/tpTHrudzyf2Fzc90tVb8qKIwoz66wbN3bXSY74xlOIdScNG\nnNpss9OFNPOpsljFxMfudL/i97EqfFIIM6B+2sFtSvzgFyBt4MstlJnVEexm\nQ5WS6FyVjzLryg6CHkx38NaeqbW+DzwPpb9klKKG9kuLEW+hVQvD0s53Ae9p\njrKbvOftgS+K\n",
-    "iv": "lIf6ngxnxyrrTQsGKkuykw==\n",
+    "encrypted_data": "OPlBOuikvHCFfjGVH4cUPOL3Yetx36SzDuIrzRQcXu+sONCmsLPMfQxOoQpV\nKd/i6Kl46Es7z63Mfz8d/NGJcFQpSGHo9TxeqxVs6fOc4ArBnRShh21QIT52\n0wSBhlmcnPi5dfBKhCD+7uSaxb2AvMfj9CGHFDdC2B2o2Fz6GBkrKoDJR2os\nss4Cv6QqQWVl\n",
+    "iv": "TyH3qqZDRlKbZLyS9H7TrA==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "smtp_config": {
-    "encrypted_data": "BqfVvM2skxUYIAbDu90ki9NXSEArqajExMUcjnCC+sDDak9mQDdBUKk6DZRu\nPyMShTkq2w1Ux9bLUX+sd2v1wwnVWNb+E1mvSC0yEYbxy8r6PYzDj6KyGqKn\nnv7Zgw8V6fZPUZkNExBTKBWhzpgWTvYHny/C8FOaQ2NfgyESdx87lmg5lGg8\nc+7UO84WPanY\n",
-    "iv": "jhx8fRTqAw2Sq71g5MDUWw==\n",
+    "encrypted_data": "97dv1CSzd1Undqg5vBy+ygCvxyzacVpmnb7lTgXaReqIaWk6CQQSTaHp6fnJ\nYXDoNkQiVS/XlvrLatU7AkK9bCYGF12Jxohy2V7xZx8mlhKulhXsmRuXyy8N\nNdVD5z7TaP/13Gn6QMPsUAa19eejpTwHRjsIpaUrGJOYHMENqPRRChGqDUUb\n4vvK0tL4bVSM\n",
+    "iv": "MslCartmKDLNgCOzgVsZCw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   }
