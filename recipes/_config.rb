@@ -48,7 +48,7 @@ chef_environment_specific = node["flapjack"]["gateways"]["data_bag"]["chef_envir
 
 gateway_items = data_bag(data_bag_name).map { |item|
   gateway = Chef::EncryptedDataBagItem.load(data_bag_name, item).to_hash
-  config = chef_environment_specific ? gateway[node.chef_environment] : gateway
+  config = chef_environment_specific ? gateway[node.chef_environment] : gateway.dup
   if config.nil?
     next
   else
