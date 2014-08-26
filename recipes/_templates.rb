@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: default
+# Recipe:: _templates
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,24 +24,23 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "flapjack::_rest_client"
+template_directory = "/etc/flapjack/templates"
 
-install_method = node["flapjack"]["install_method"]
-case install_method
-when "gem"
-  include_recipe "flapjack::_gem"
-when "package"
-  include_recipe "flapjack::_package"
-else
-  raise "Unsupported Flapjack install method: #{install_method}"
+directory template_directory do
+  recursive true
+  owner node["flapjack"]["user"]
+  group node["flapjack"]["group"]
+  mode 0755
 end
 
-if node["flapjack"]["install_redis"]
-  include_recipe "flapjack::_redis"
+%w(
+  email.alert.html.erb
+  email.text.erb
+).each do | template |
+  cookbook_file template do
+    path File.join(template_directory, template)
+    owner node["flapjack"]["user"]
+    group node["flapjack"]["group"]
+    mode 0750
+  end
 end
-
-include_recipe "flapjack::_user"
-include_recipe "flapjack::_templates"
-include_recipe "flapjack::_config"
-include_recipe "flapjack::_services"
-include_recipe "flapjack::_contacts"

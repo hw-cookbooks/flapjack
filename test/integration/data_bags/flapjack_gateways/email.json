@@ -1,26 +1,32 @@
 {
   "id": "email",
   "enabled": {
-    "encrypted_data": "4aePFOOTecILyFrS+/dNIKOWVMyc7ctF5qpqACZv+8A=\n",
-    "iv": "YE062p5xFhFuYED/zm6CRQ==\n",
+    "encrypted_data": "IogUnW0tiDg46sQSlTuBjZnCpaS2jp548XILhQyhWOc=\n",
+    "iv": "n0dg7CzEKZE6EgWbzALzzQ==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "queue": {
-    "encrypted_data": "znd8gXMabagutuTijc2skTVOo5lpo1Z7aVNX/x43Cse0vyOarH1S7DQ3A4ey\nFltK\n",
-    "iv": "in+OASWOwG7owz3qjJKVFA==\n",
+    "encrypted_data": "qOZmgPtL3duNDK4SLw5aBlCUJZDQ2b2f6dSoMlOxr1ylOA9fCp3KapxgSNb8\nVqt8\n",
+    "iv": "aMblUzx91A9oxJV8H2hDyA==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "logger": {
-    "encrypted_data": "NoMJY96c8QkJUzpvcyoQ9lDrHceTs/zQxmoNljVrmCxPBa8Yfr0atBjHwX2a\nzfJL\n",
-    "iv": "0EUARDUlREFTYBILM5AbGA==\n",
+    "encrypted_data": "L7uYOiTT/tktU54oLQv5ouzXzVUdOi7f52CZqrY5zNArJReiLC42N8l042jf\niFXr\n",
+    "iv": "xuuRpn3ofzqTEWHiRC61Uw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "templates": {
+    "encrypted_data": "OPlBOuikvHCFfjGVH4cUPOL3Yetx36SzDuIrzRQcXu+sONCmsLPMfQxOoQpV\nKd/i6Kl46Es7z63Mfz8d/NGJcFQpSGHo9TxeqxVs6fOc4ArBnRShh21QIT52\n0wSBhlmcnPi5dfBKhCD+7uSaxb2AvMfj9CGHFDdC2B2o2Fz6GBkrKoDJR2os\nss4Cv6QqQWVl\n",
+    "iv": "TyH3qqZDRlKbZLyS9H7TrA==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   },
   "smtp_config": {
-    "encrypted_data": "4GjOBDqWTZTfNMFJfrbdWEADHaOxPPuJMlnbv5cusCamHVCKijGKyvRyef3I\nBBNCKNCycAsd6TCzNnMMtEj84DD/aFTySsbXvztr6R7lDdgasx8YeA6vD0bd\nKzpMg03OGgv6N2jsw7vhlP1GYjjhzw5uufzYEiIODGrb4rq51ZCMW9V0/ThI\n0O8KUNnmwFZz\n",
-    "iv": "WHGDgtBLyffnvk8t9FwISw==\n",
+    "encrypted_data": "97dv1CSzd1Undqg5vBy+ygCvxyzacVpmnb7lTgXaReqIaWk6CQQSTaHp6fnJ\nYXDoNkQiVS/XlvrLatU7AkK9bCYGF12Jxohy2V7xZx8mlhKulhXsmRuXyy8N\nNdVD5z7TaP/13Gn6QMPsUAa19eejpTwHRjsIpaUrGJOYHMENqPRRChGqDUUb\n4vvK0tL4bVSM\n",
+    "iv": "MslCartmKDLNgCOzgVsZCw==\n",
     "version": 1,
     "cipher": "aes-256-cbc"
   }
