@@ -53,7 +53,7 @@ gateway_items = data_bag(data_bag_name).map { |item|
     next
   else
     config.delete("id")
-    {gateway["id"] => config}
+    [gateway["id"], config]
   end
 }.compact
 
