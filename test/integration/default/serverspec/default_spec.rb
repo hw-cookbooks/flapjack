@@ -36,6 +36,14 @@ describe file("/etc/flapjack/flapjack_config.yaml") do
   its(:content) { should match /smtp_config/ }
 end
 
+describe file("/etc/flapjack/templates/email.text.erb") do
+  it { should be_file }
+end
+
+describe file("/etc/flapjack/templates/email.html.erb") do
+  it { should be_file }
+end
+
 describe "Flapjack API" do
   let(:api_uri) { "http://localhost:5081" }
 

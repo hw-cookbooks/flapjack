@@ -34,7 +34,7 @@ directory template_directory do
 end
 
 %w(
-  email.alert.html.erb
+  email.html.erb
   email.text.erb
 ).each do | template |
   cookbook_file template do
