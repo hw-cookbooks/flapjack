@@ -5,6 +5,10 @@
   "logger" => {
     "level" => "INFO"
   },
+  "templates" => {
+    "alert.text" => "/etc/flapjack/templates/email.text.erb",
+    "alert.html" => "/etc/flapjack/templates/email.html.erb"
+  },
   "smtp_config" => {
     "host" => "localhost",
     "port" => 25,

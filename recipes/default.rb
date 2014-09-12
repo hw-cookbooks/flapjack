@@ -41,6 +41,7 @@ if node["flapjack"]["install_redis"]
 end
 
 include_recipe "flapjack::_user"
+include_recipe "flapjack::_templates"
 include_recipe "flapjack::_config"
 include_recipe "flapjack::_services"
 include_recipe "flapjack::_contacts"

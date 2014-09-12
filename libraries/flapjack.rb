@@ -17,12 +17,16 @@ module Flapjack
     end
   end
 
-  def create_contact(info, id=nil)
-    info["id"] = id if id
-    $flapjack_contacts ||= []
-    $flapjack_contacts << info
+  def get_contact(id)
+    response = get("contacts/#{id}")
+    parsed = JSON.parse(response.body)
+    parsed["contacts"].first
+  end
+
+  def create_contact(id, info)
+    info["id"] ||= id
     raw_hash = {
-      "contacts" => $flapjack_contacts
+      "contacts" => [info]
     }
     post("contacts", raw_hash)
   end
@@ -35,25 +39,64 @@ module Flapjack
     end
   end
 
-  def contact_notification_rules(id)
-    response = get("contacts/#{id}/notification_rules")
-    JSON.parse(response.body)
+  def get_contact_media_ids(id)
+    contact = get_contact(id)
+    contact["links"]["media"].join(",")
   end
 
-  def create_notification_rule(info)
-    post("notification_rules", info)
+  def get_contact_media(id)
+    media_ids = get_contact_media_ids(id)
+    response = get("media/#{media_ids}")
+    parsed = JSON.parse(response.body)
+    parsed["media"]
   end
 
-  def delete_notification_rule(id)
+  def create_contact_media(id, info)
+    raw_hash = {
+      "media" => info
+    }
+    post("contacts/#{id}/media", raw_hash)
+  end
+
+  def delete_contact_media(id)
+    media_ids = get_contact_media_ids(id)
     begin
-      delete("notification_rules/#{id}")
+      delete("media/#{media_ids}")
     rescue RestClient::Exception => error
-      Chef::Log.warn "Encountered an error while deleting Flapjack notification rule: #{id} - #{error}"
+      Chef::Log.warn "Encountered an error while deleting Flapjack media: #{media_ids} - #{error}"
     end
   end
 
-  def create_entity(info, id=nil)
-    info["id"] = id if id
+  def get_contact_notification_rules_ids(id)
+    contact = get_contact(id)
+    contact["links"]["notification_rules"].join(",")
+  end
+
+  def get_contact_notification_rules(id)
+    rules_ids = get_contact_notification_rules_ids(id)
+    response = get("notification_rules/#{rules_ids}")
+    parsed = JSON.parse(response.body)
+    parsed["notification_rules"]
+  end
+
+  def delete_contact_notification_rules(id)
+    rules_ids = get_contact_notification_rules_ids(id)
+    begin
+      delete("notification_rules/#{rules_ids}")
+    rescue RestClient::Exception => error
+      Chef::Log.warn "Encountered an error while deleting Flapjack notification rules: #{rules_ids} - #{error}"
+    end
+  end
+
+  def create_contact_notification_rules(id, info)
+    raw_hash = {
+      "notification_rules" => info
+    }
+    post("contacts/#{id}/notification_rules", raw_hash)
+  end
+
+  def create_entity(id, info)
+    info["id"] ||= id
     raw_hash = {
       "entities" => [info]
     }
@@ -63,7 +106,7 @@ module Flapjack
   private
 
   def api_uri
-    port = node["flapjack"]["config"]["gateways"]["api"]["port"]
+    port = node["flapjack"]["config"]["gateways"]["jsonapi"]["port"]
     "http://localhost:#{port}"
   end
 

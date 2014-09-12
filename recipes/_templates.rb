@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: flapjack
-# Recipe:: _gem
+# Recipe:: _templates
 #
 # Copyright 2014, Heavy Water Operations, LLC.
 #
@@ -24,17 +24,23 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "build-essential"
+template_directory = "/etc/flapjack/templates"
 
-if node["flapjack"]["install_ruby"]
-  include_recipe "ruby_installer"
+directory template_directory do
+  recursive true
+  owner node["flapjack"]["user"]
+  group node["flapjack"]["group"]
+  mode 0755
 end
 
-gem_bin = Chef::DelayedEvaluator.new {
-  File.join(node["flapjack"]["ruby_bin_dir"] || node["languages"]["ruby"]["bin_dir"], "gem")
-}
-
-gem_package "flapjack" do
-  version node["flapjack"]["version"]
-  gem_binary gem_bin
+%w(
+  email.html.erb
+  email.text.erb
+).each do | template |
+  cookbook_file template do
+    path File.join(template_directory, template)
+    owner node["flapjack"]["user"]
+    group node["flapjack"]["group"]
+    mode 0750
+  end
 end
