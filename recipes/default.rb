@@ -43,5 +43,5 @@ end
 include_recipe "flapjack::_user"
 include_recipe "flapjack::_templates"
 include_recipe "flapjack::_config"
-include_recipe "flapjack::_services"
+include_recipe "flapjack::_services" unless node["flapjack"]["install_method"].eql?("package")
 include_recipe "flapjack::_contacts"

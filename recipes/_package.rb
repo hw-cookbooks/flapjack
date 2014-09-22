@@ -27,25 +27,31 @@
 platform_family = node["platform_family"]
 case platform_family
 when "debian"
+
   apt_repository "flapjack" do
     uri node["flapjack"]["apt_repo_uri"]
     distribution node["lsb"]["codename"]
     components ["main"]
   end
 
-  deb_file = "/var/cache/apt/archives/flapjack_" + node["flapjack"]["version"]
-  tmp_folder = "/tmp/flapjack"
-
-  execute "extract_flapjack" do
-    command "dpkg-deb --extract #{deb_file}* #{tmp_folder} && cp -r #{tmp_folder}/* /"
-    action :nothing
-  end
-
   package "flapjack" do
     version node["flapjack"]["version"]
-    options "--force-yes -d"
-    notifies :run, "execute[extract_flapjack]", :immediately
+    options "--force-yes"
   end
+
+  service "flapjack" do
+   action [ :enable, :start ]
+  end
+
+  service "redis-flapjack" do
+   if node["flapjack"]["install_redis"]
+     action [ :stop, :disable ]
+   else
+     action [ :enable, :start ]
+     subscribes :restart, "file[/etc/flapjack/flapjack_config.yaml]"
+   end
+  end
+
 else
   raise "A Flapjack package is not available for this platform family: #{platform_family}"
 end
