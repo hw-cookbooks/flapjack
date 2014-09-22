@@ -31,11 +31,11 @@ default["flapjack"]["config"]["notifier"]["logger"]["level"] = "INFO"
 default["flapjack"]["config"]["notifier"]["logger"]["syslog_errors"] = "yes"
 
 default["flapjack"]["config"]["gateways"]["web"]["enabled"] = "yes"
-default["flapjack"]["config"]["gateways"]["web"]["port"] = 3080
+default["flapjack"]["config"]["gateways"]["web"]["port"] = 5080
 default["flapjack"]["config"]["gateways"]["web"]["timeout"] =  300
 default["flapjack"]["config"]["gateways"]["web"]["auto_refresh"] =  120
-default["flapjack"]["config"]["gateways"]["web"]["access_log"] = "log/web_access.log"
-default["flapjack"]["config"]["gateways"]["web"]["api_url"] =  "http://localhost:3081/"
+default["flapjack"]["config"]["gateways"]["web"]["access_log"] = "/var/log/flapjack/web_access.log"
+default["flapjack"]["config"]["gateways"]["web"]["api_url"] =  "http://localhost:5081/"
 default["flapjack"]["config"]["gateways"]["web"]["logger"]["level"] = "DEBUG"
 default["flapjack"]["config"]["gateways"]["web"]["logger"]["syslog_errors"] = "yes"
 
