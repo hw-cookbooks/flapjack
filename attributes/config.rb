@@ -30,6 +30,15 @@ default["flapjack"]["config"]["notifier"]["default_contact_timezone"] = "UTC"
 default["flapjack"]["config"]["notifier"]["logger"]["level"] = "INFO"
 default["flapjack"]["config"]["notifier"]["logger"]["syslog_errors"] = "yes"
 
+default["flapjack"]["config"]["gateways"]["web"]["enabled"] = "yes"
+default["flapjack"]["config"]["gateways"]["web"]["port"] = 3080
+default["flapjack"]["config"]["gateways"]["web"]["timeout"] =  300
+default["flapjack"]["config"]["gateways"]["web"]["auto_refresh"] =  120
+default["flapjack"]["config"]["gateways"]["web"]["access_log"] = "log/web_access.log"
+default["flapjack"]["config"]["gateways"]["web"]["api_url"] =  "http://localhost:3081/"
+default["flapjack"]["config"]["gateways"]["web"]["logger"]["level"] = "DEBUG"
+default["flapjack"]["config"]["gateways"]["web"]["logger"]["syslog_errors"] = "yes"
+
 default["flapjack"]["config"]["gateways"]["jsonapi"]["enabled"] = "yes"
 default["flapjack"]["config"]["gateways"]["jsonapi"]["host"] = "127.0.0.1"
 default["flapjack"]["config"]["gateways"]["jsonapi"]["port"] = 5081
