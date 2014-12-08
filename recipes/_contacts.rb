@@ -24,13 +24,13 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-data_bag_name = node["flapjack"]["contacts"]["data_bag"]["name"]
+data_bag_name = node['flapjack']['contacts']['data_bag']['name']
 
-contact_items = data_bag(data_bag_name).map { |item|
+contact_items = data_bag(data_bag_name).map do |item|
   data_bag_item(data_bag_name, item).to_hash
-}
+end
 
-contact_namespace = node["flapjack"]["contacts"]["data_bag"]["namespace"]
+contact_namespace = node['flapjack']['contacts']['data_bag']['namespace']
 
 contacts = case contact_namespace
 when nil
@@ -40,16 +40,16 @@ else
 end
 
 contacts.each do |contact|
-  resource_action = contact.delete("action") || "create"
-  flapjack_contact contact["id"] do
+  resource_action = contact.delete('action') || 'create'
+  flapjack_contact contact['id'] do
     info contact
     action resource_action.to_sym
   end
 end
 
-if node["flapjack"]["contacts"]["manage_all_entity"]
-  contact_ids = contacts.map {|contact| contact["id"]}
-  flapjack_entity "ALL" do
-    info(:name => "ALL", :contacts => contact_ids)
+if node['flapjack']['contacts']['manage_all_entity']
+  contact_ids = contacts.map { |contact| contact['id'] }
+  flapjack_entity 'ALL' do
+    info(:name => 'ALL', :contacts => contact_ids)
   end
 end

@@ -24,6 +24,6 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-user node["flapjack"]["user"] do
+user node['flapjack']['user'] do
   system true
 end

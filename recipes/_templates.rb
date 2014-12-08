@@ -24,12 +24,12 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-template_directory = "/etc/flapjack/templates"
+template_directory = '/etc/flapjack/templates'
 
 directory template_directory do
   recursive true
-  owner node["flapjack"]["user"]
-  group node["flapjack"]["group"]
+  owner node['flapjack']['user']
+  group node['flapjack']['group']
   mode 0755
 end
 
@@ -39,8 +39,8 @@ end
 ).each do | template |
   cookbook_file template do
     path File.join(template_directory, template)
-    owner node["flapjack"]["user"]
-    group node["flapjack"]["group"]
+    owner node['flapjack']['user']
+    group node['flapjack']['group']
     mode 0750
   end
 end

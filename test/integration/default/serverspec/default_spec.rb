@@ -16,7 +16,7 @@ describe command('ruby -e \'require "flapjack"\'') do
   it { should return_exit_status 0 }
 end
 
-describe process("redis-server") do
+describe process('redis-server') do
   it { should be_running }
 end
 
@@ -24,28 +24,28 @@ describe port(6379) do
   it { should be_listening }
 end
 
-describe file("/etc/flapjack") do
+describe file('/etc/flapjack') do
   it { should be_directory }
 end
 
-describe file("/etc/flapjack/flapjack_config.yaml") do
+describe file('/etc/flapjack/flapjack_config.yaml') do
   it { should be_file }
 end
 
-describe file("/etc/flapjack/flapjack_config.yaml") do
+describe file('/etc/flapjack/flapjack_config.yaml') do
   its(:content) { should match /smtp_config/ }
 end
 
-describe file("/etc/flapjack/templates/email.text.erb") do
+describe file('/etc/flapjack/templates/email.text.erb') do
   it { should be_file }
 end
 
-describe file("/etc/flapjack/templates/email.html.erb") do
+describe file('/etc/flapjack/templates/email.html.erb') do
   it { should be_file }
 end
 
-describe "Flapjack API" do
-  let(:api_uri) { "http://localhost:5081" }
+describe 'Flapjack API' do
+  let(:api_uri) { 'http://localhost:5081' }
 
   it "returns a contact 'foo'" do
     uri = URI("#{api_uri}/contacts/foo")

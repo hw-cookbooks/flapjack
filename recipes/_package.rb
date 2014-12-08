@@ -24,30 +24,30 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-platform_family = node["platform_family"]
+platform_family = node['platform_family']
 case platform_family
-when "debian"
-  apt_repository "flapjack" do
-    uri node["flapjack"]["apt_repo_uri"]
-    distribution node["lsb"]["codename"]
-    components ["main"]
+when 'debian'
+  apt_repository 'flapjack' do
+    uri node['flapjack']['apt_repo_uri']
+    distribution node['lsb']['codename']
+    components ['main']
   end
 
-  deb_file = "/var/cache/apt/archives/flapjack_" + node["flapjack"]["version"]
-  tmp_folder = "/tmp/flapjack"
+  deb_file = '/var/cache/apt/archives/flapjack_' + node['flapjack']['version']
+  tmp_folder = '/tmp/flapjack'
 
-  execute "extract_flapjack" do
+  execute 'extract_flapjack' do
     command "dpkg-deb --extract #{deb_file}* #{tmp_folder} && cp -r #{tmp_folder}/* /"
     action :nothing
   end
 
-  package "flapjack" do
-    version node["flapjack"]["version"]
-    options "--force-yes -d"
-    notifies :run, "execute[extract_flapjack]", :immediately
+  package 'flapjack' do
+    version node['flapjack']['version']
+    options '--force-yes -d'
+    notifies :run, 'execute[extract_flapjack]', :immediately
   end
 else
-  raise "A Flapjack package is not available for this platform family: #{platform_family}"
+  fail "A Flapjack package is not available for this platform family: #{platform_family}"
 end
 
-node.override["flapjack"]["ruby_bin_dir"] = node["flapjack"]["ruby_bin_dir"] || "/opt/flapjack/bin"
+node.override['flapjack']['ruby_bin_dir'] = node['flapjack']['ruby_bin_dir'] || '/opt/flapjack/bin'

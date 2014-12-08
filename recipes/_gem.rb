@@ -24,17 +24,17 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "build-essential"
+include_recipe 'build-essential'
 
-if node["flapjack"]["install_ruby"]
-  include_recipe "ruby_installer"
+if node['flapjack']['install_ruby']
+  include_recipe 'ruby_installer'
 end
 
-gem_bin = Chef::DelayedEvaluator.new {
-  File.join(node["flapjack"]["ruby_bin_dir"] || node["languages"]["ruby"]["bin_dir"], "gem")
-}
+gem_bin = Chef::DelayedEvaluator.new do
+  File.join(node['flapjack']['ruby_bin_dir'] || node['languages']['ruby']['bin_dir'], 'gem')
+end
 
-gem_package "flapjack" do
-  version node["flapjack"]["version"]
+gem_package 'flapjack' do
+  version node['flapjack']['version']
   gem_binary gem_bin
 end

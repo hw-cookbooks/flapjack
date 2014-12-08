@@ -24,24 +24,24 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-include_recipe "flapjack::_rest_client"
+include_recipe 'flapjack::_rest_client'
 
-install_method = node["flapjack"]["install_method"]
+install_method = node['flapjack']['install_method']
 case install_method
-when "gem"
-  include_recipe "flapjack::_gem"
-when "package"
-  include_recipe "flapjack::_package"
+when 'gem'
+  include_recipe 'flapjack::_gem'
+when 'package'
+  include_recipe 'flapjack::_package'
 else
-  raise "Unsupported Flapjack install method: #{install_method}"
+  fail "Unsupported Flapjack install method: #{install_method}"
 end
 
-if node["flapjack"]["install_redis"]
-  include_recipe "flapjack::_redis"
+if node['flapjack']['install_redis']
+  include_recipe 'flapjack::_redis'
 end
 
-include_recipe "flapjack::_user"
-include_recipe "flapjack::_templates"
-include_recipe "flapjack::_config"
-include_recipe "flapjack::_services"
-include_recipe "flapjack::_contacts"
+include_recipe 'flapjack::_user'
+include_recipe 'flapjack::_templates'
+include_recipe 'flapjack::_config'
+include_recipe 'flapjack::_services'
+include_recipe 'flapjack::_contacts'
