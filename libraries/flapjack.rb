@@ -1,5 +1,7 @@
 module Flapjack
   class << self
+    require 'rest_client'
+
     def to_hash(raw_hash)
       new_hash = {}
       raw_hash.each do |k, v|
