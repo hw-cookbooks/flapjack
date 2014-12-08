@@ -26,9 +26,10 @@
 
 include_recipe 'build-essential'
 
-if node['flapjack']['install_ruby']
-  include_recipe 'ruby_installer'
-end
+# libssl-dev required for SSL support in eventmachine
+package 'libssl-dev'
+
+include_recipe 'ruby_installer' if node['flapjack']['install_ruby']
 
 gem_bin = Chef::DelayedEvaluator.new do
   File.join(node['flapjack']['ruby_bin_dir'] || node['languages']['ruby']['bin_dir'], 'gem')
