@@ -30,7 +30,7 @@ directory template_directory do
   recursive true
   owner node['flapjack']['user']
   group node['flapjack']['group']
-  mode 0755
+  mode '0755'
 end
 
 %w(
@@ -41,6 +41,6 @@ end
     path File.join(template_directory, template)
     owner node['flapjack']['user']
     group node['flapjack']['group']
-    mode 0750
+    mode '0750'
   end
 end

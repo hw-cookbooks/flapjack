@@ -28,7 +28,7 @@ directory '/etc/flapjack' do
   recursive true
   owner node['flapjack']['user']
   group node['flapjack']['group']
-  mode 0755
+  mode '0755'
 end
 
 %w(
@@ -39,7 +39,7 @@ end
     recursive true
     owner node['flapjack']['user']
     group node['flapjack']['group']
-    mode 0755
+    mode '0755'
   end
 end
 
@@ -68,5 +68,5 @@ file '/etc/flapjack/flapjack_config.yaml' do
   content config.to_yaml
   owner node['flapjack']['user']
   group node['flapjack']['group']
-  mode 0750
+  mode '0750'
 end
