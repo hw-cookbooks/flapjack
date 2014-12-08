@@ -38,7 +38,7 @@ Note: Package install method does not use the package scripts.
 
 `node["flapjack"]["environment"]` - The Flapjack environment, the default is `"production"`.
 
-`node["flapjack"]["config"][*]` - Flapjack configuration options, please refer to https://github.com/flpjck/flapjack/wiki/USING#wiki-configuring-components
+`node["flapjack"]["config"][*]` - Flapjack configuration options, please refer to https://github.com/flapjack/flapjack/wiki/USING#configuring-components
 for more information.
 
 ## Recipes
