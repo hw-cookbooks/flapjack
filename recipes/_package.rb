@@ -30,6 +30,8 @@ when 'debian'
   apt_repository 'flapjack' do
     uri node['flapjack']['apt_repo_uri']
     distribution node['lsb']['codename']
+    keyserver 'keys.gnupg.net'
+    key '803709B6'
     components ['main']
   end
 
@@ -42,7 +44,7 @@ when 'debian'
   end
 
   package 'flapjack' do
-    version node['flapjack']['version']
+    version "#{node['flapjack']['version']}~#{node['lsb']['codename']}"
     options '--force-yes -d'
     notifies :run, 'execute[extract_flapjack]', :immediately
   end
