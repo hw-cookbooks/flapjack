@@ -7,4 +7,6 @@ cookbook 'flapjack_test', :path => 'test/integration/cookbooks/flapjack_test'
 
 cookbook 'ruby_installer', :git => 'https://github.com/hw-cookbooks/ruby_installer.git', :ref => 'develop'
 
+cookbook 'package_installer', :git => 'https://github.com/hw-cookbooks/package_installer.git'
+
 cookbook 'flapjack', :path => '.'
