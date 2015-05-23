@@ -24,49 +24,49 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-directory "/etc/flapjack" do
+directory '/etc/flapjack' do
   recursive true
-  owner node["flapjack"]["user"]
-  group node["flapjack"]["group"]
-  mode 0755
+  owner node['flapjack']['user']
+  group node['flapjack']['group']
+  mode '0755'
 end
 
-%w[
+%w(
   pid_file
   log_file
-].each do |option|
-  directory File.dirname(node["flapjack"]["config"][option]) do
+).each do |option|
+  directory File.dirname(node['flapjack']['config'][option]) do
     recursive true
-    owner node["flapjack"]["user"]
-    group node["flapjack"]["group"]
-    mode 0755
+    owner node['flapjack']['user']
+    group node['flapjack']['group']
+    mode '0755'
   end
 end
 
-data_bag_name = node["flapjack"]["gateways"]["data_bag"]["name"]
-chef_environment_specific = node["flapjack"]["gateways"]["data_bag"]["chef_environment_specific"]
+data_bag_name = node['flapjack']['gateways']['data_bag']['name']
+chef_environment_specific = node['flapjack']['gateways']['data_bag']['chef_environment_specific']
 
-gateway_items = data_bag(data_bag_name).map { |item|
+gateway_items = data_bag(data_bag_name).map do |item|
   gateway = Chef::EncryptedDataBagItem.load(data_bag_name, item).to_hash
   config = chef_environment_specific ? gateway[node.chef_environment] : gateway.dup
   if config.nil?
     next
   else
-    config.delete("id")
-    [gateway["id"], config]
+    config.delete('id')
+    [gateway['id'], config]
   end
-}.compact
+end.compact
 
 gateways = Hash[gateway_items]
 
-environment = Flapjack.to_hash(node["flapjack"]["config"])
-environment["gateways"].merge!(gateways)
+environment = Flapjack.to_hash(node['flapjack']['config'])
+environment['gateways'].merge!(gateways)
 
-config = {node["flapjack"]["environment"] => environment}
+config = { node['flapjack']['environment'] => environment }
 
-file "/etc/flapjack/flapjack_config.yaml" do
+file '/etc/flapjack/flapjack_config.yaml' do
   content config.to_yaml
-  owner node["flapjack"]["user"]
-  group node["flapjack"]["group"]
-  mode 0750
+  owner node['flapjack']['user']
+  group node['flapjack']['group']
+  mode '0750'
 end

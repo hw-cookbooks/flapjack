@@ -24,20 +24,20 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-packages = node["package_installer"]["packages"].to_hash.merge("net-tools" => {})
+packages = node['package_installer']['packages'].to_hash.merge('net-tools' => {})
 
-case node["platform_family"]
-when "debian"
-  if platform?("ubuntu")
-    include_recipe "ubuntu"
+case node['platform_family']
+when 'debian'
+  if platform?('ubuntu')
+    include_recipe 'ubuntu'
   else
-    include_recipe "apt"
+    include_recipe 'apt'
   end
-when "rhel"
-  include_recipe "yum-epel"
-  packages.merge!("which" => {})
+when 'rhel'
+  include_recipe 'yum-epel'
+  packages.merge!('which' => {})
 end
 
-node.override["package_installer"]["packages"] = packages
+node.override['package_installer']['packages'] = packages
 
-include_recipe "package_installer"
+include_recipe 'package_installer'

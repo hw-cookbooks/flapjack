@@ -24,8 +24,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-r = chef_gem "rest-client" do
-  version node["flapjack"]["rest_client"]["version"]
+r = chef_gem 'rest-client' do
+  version node['flapjack']['rest_client']['version']
   action :nothing
 end
 r.run_action(:install)

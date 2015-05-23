@@ -6,7 +6,7 @@ def load_current_resource
 end
 
 def filter_hash(raw_hash, key_filter)
-  raw_hash.reject { |key, value| key_filter.include?(key) }
+  raw_hash.reject { |key, _value| key_filter.include?(key) }
 end
 
 def filter_hashes(raw_array, key_filter)
@@ -20,14 +20,14 @@ def flattened_comparison(one, two)
 end
 
 def contact_info_changed?(previous, current)
-  key_filter = %w[data_bag chef_type media notification_rules links]
+  key_filter = %w(data_bag chef_type media notification_rules links)
   previous_filtered = filter_hash(previous, key_filter)
   current_filtered = filter_hash(current, key_filter)
   !flattened_comparison(previous_filtered, current_filtered)
 end
 
 def media_changed?(previous, current)
-  key_filter = %w[id links]
+  key_filter = %w(id links)
   previous_filtered = filter_hashes(previous, key_filter)
   current_filtered = filter_hashes(current, key_filter)
   !flattened_comparison(previous_filtered, current_filtered)
@@ -35,22 +35,22 @@ end
 
 def notification_rules_defaults
   {
-    "tags" => nil,
-    "regex_tags" => nil,
-    "entities" => nil,
-    "regex_entities" => nil,
-    "time_restrictions" => nil,
-    "unknown_media" => nil,
-    "warning_media" => nil,
-    "critical_media" => nil,
-    "unknown_blackhole" => nil,
-    "warning_blackhole" => nil,
-    "critical_blackhole" => nil
+    'tags' => nil,
+    'regex_tags' => nil,
+    'entities' => nil,
+    'regex_entities' => nil,
+    'time_restrictions' => nil,
+    'unknown_media' => nil,
+    'warning_media' => nil,
+    'critical_media' => nil,
+    'unknown_blackhole' => nil,
+    'warning_blackhole' => nil,
+    'critical_blackhole' => nil
   }
 end
 
 def notification_rules_changed?(previous, current)
-  key_filter = %w[id links]
+  key_filter = %w(id links)
   previous_filtered = filter_hashes(previous, key_filter)
   current_with_defaults = current.map do |rules|
     notification_rules_defaults.merge(rules)
@@ -73,10 +73,10 @@ action :create do
     create_contact(@contact_id, @contact_info)
     new_resource.updated_by_last_action(true)
   end
-  raw_media = @contact_info["media"]
+  raw_media = @contact_info['media']
   if raw_media.is_a?(Hash)
     media = raw_media.inject([]) do |media, (type, details)|
-      media << details.merge("type" => type)
+      media << details.merge('type' => type)
       media
     end
     previous_media = get_contact_media(@contact_id)
@@ -87,7 +87,7 @@ action :create do
       new_resource.updated_by_last_action(true)
     end
   end
-  notification_rules = @contact_info["notification_rules"]
+  notification_rules = @contact_info['notification_rules']
   if notification_rules.is_a?(Array)
     previous_notification_rules = get_contact_notification_rules(@contact_id)
     if notification_rules_changed?(previous_notification_rules, notification_rules)
