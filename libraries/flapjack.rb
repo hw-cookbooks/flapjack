@@ -1,6 +1,9 @@
 module Flapjack
   class << self
-    require 'rest_client'
+
+    def initialize
+      require 'rest_client'
+    end
 
     def to_hash(raw_hash)
       new_hash = {}
