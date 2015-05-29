@@ -35,18 +35,9 @@ when 'debian'
     components ['main']
   end
 
-  deb_file = '/var/cache/apt/archives/flapjack_' + node['flapjack']['version']
-  tmp_folder = '/tmp/flapjack'
-
-  execute 'extract_flapjack' do
-    command "dpkg-deb --extract #{deb_file}* #{tmp_folder} && cp -r #{tmp_folder}/* /"
-    action :nothing
-  end
-
   package 'flapjack' do
     version "#{node['flapjack']['version']}~#{node['lsb']['codename']}"
-    options '--force-yes -d'
-    notifies :run, 'execute[extract_flapjack]', :immediately
+    options '--force-yes'
   end
 else
   fail "A Flapjack package is not available for this platform family: #{platform_family}"
