@@ -36,7 +36,11 @@ when 'debian'
   end
 
   package 'flapjack' do
-    version "#{node['flapjack']['version']}~#{node['lsb']['codename']}"
+    if node['flapjack']['version'] < '1.3.0'
+      version "#{node['flapjack']['version']}-#{node['lsb']['codename']}"
+    else
+      version "#{node['flapjack']['version']}~#{node['lsb']['codename']}"
+    end
     options '--force-yes'
   end
 else

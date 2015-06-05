@@ -1,5 +1,5 @@
 default['flapjack']['install_method'] = 'gem' # "package" (no rpm)
-default['flapjack']['version'] = '1.5.0'
+default['flapjack']['version'] = '1.0.0'
 
 default['flapjack']['apt_repo_uri'] = 'http://packages.flapjack.io/deb/v1'
 
