@@ -39,6 +39,15 @@ when 'debian'
     version "#{node['flapjack']['version']}~#{node['lsb']['codename']}"
     options '--force-yes'
   end
+when 'rhel'
+  yum_repository 'flapjack' do
+    baseurl 'http://packages.flapjack.io/rpm/v1/flapjack/centos/6/x86_64/'
+    description 'flapjack yum repo'
+    gpgcheck false
+  end
+  package 'flapjack' do
+    version node['flapjack']['version']
+  end
 else
   fail "A Flapjack package is not available for this platform family: #{platform_family}"
 end
