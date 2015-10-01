@@ -3,6 +3,11 @@ flapjack CHANGELOG
 
 This file is used to list changes made in each version of the flapjack cookbook.
 
+0.8.2
+-----
+- different package names for each platform for ssl libs
+- rest-client require and module changes
+
 0.8.1
 -----
 - Add a rubocop.yml file and run rubocop
