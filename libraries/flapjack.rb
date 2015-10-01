@@ -1,6 +1,8 @@
 module Flapjack
   class << self
-    require 'rest_client'
+    def initialize
+      require 'rest-client'
+    end
 
     def to_hash(raw_hash)
       new_hash = {}
@@ -13,7 +15,7 @@ module Flapjack
 
   def contact_exists?(id)
     get("contacts/#{id}").code == 200
-  rescue RestClient::Exception
+  rescue ::RestClient::Exception
     false
   end
 
@@ -33,7 +35,7 @@ module Flapjack
 
   def delete_contact(id)
     delete("contacts/#{id}")
-  rescue RestClient::Exception => error
+  rescue ::RestClient::Exception => error
     Chef::Log.warn "Encountered an error while deleting Flapjack contact: #{id} - #{error}"
   end
 
@@ -60,7 +62,7 @@ module Flapjack
     media_ids = get_contact_media_ids(id)
     begin
       delete("media/#{media_ids}")
-    rescue RestClient::Exception => error
+    rescue ::RestClient::Exception => error
       Chef::Log.warn "Encountered an error while deleting Flapjack media: #{media_ids} - #{error}"
     end
   end
@@ -81,7 +83,7 @@ module Flapjack
     rules_ids = get_contact_notification_rules_ids(id)
     begin
       delete("notification_rules/#{rules_ids}")
-    rescue RestClient::Exception => error
+    rescue ::RestClient::Exception => error
       Chef::Log.warn "Encountered an error while deleting Flapjack notification rules: #{rules_ids} - #{error}"
     end
   end
@@ -109,14 +111,14 @@ module Flapjack
   end
 
   def get(resource)
-    RestClient.get "#{api_uri}/#{resource}", :accept => :json
+    ::RestClient.get "#{api_uri}/#{resource}", :accept => :json
   end
 
   def post(resource, raw_hash)
-    RestClient.post "#{api_uri}/#{resource}", raw_hash.to_json, :content_type => :json, :accept => :json
+    ::RestClient.post "#{api_uri}/#{resource}", raw_hash.to_json, :content_type => :json, :accept => :json
   end
 
   def delete(resource)
-    RestClient.delete "#{api_uri}/#{resource}"
+    ::RestClient.delete "#{api_uri}/#{resource}"
   end
 end

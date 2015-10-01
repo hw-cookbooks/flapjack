@@ -27,7 +27,12 @@
 include_recipe 'build-essential'
 
 # libssl-dev required for SSL support in eventmachine
-package 'libssl-dev'
+case node['platform_family']
+when 'debian'
+  package 'libssl-dev'
+when 'rhel'
+  package 'openssl-devel'
+end
 
 include_recipe 'ruby_installer' if node['flapjack']['install_ruby']
 
