@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: flapjack
+# Cookbook:: flapjack
 # Recipe:: _package
 #
-# Copyright 2014, Heavy Water Operations, LLC.
+# Copyright:: 2014, Heavy Water Operations, LLC.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -29,7 +29,6 @@ case platform_family
 when 'debian'
   apt_repository 'flapjack' do
     uri node['flapjack']['apt_repo_uri']
-    distribution node['lsb']['codename']
     keyserver 'keys.gnupg.net'
     key '803709B6'
     components ['main']
@@ -40,7 +39,7 @@ when 'debian'
     options '--force-yes'
   end
 else
-  fail "A Flapjack package is not available for this platform family: #{platform_family}"
+  raise "A Flapjack package is not available for this platform family: #{platform_family}"
 end
 
 node.override['flapjack']['ruby_bin_dir'] = node['flapjack']['ruby_bin_dir'] || '/opt/flapjack/bin'

@@ -28,7 +28,7 @@ module Flapjack
   def create_contact(id, info)
     info['id'] ||= id
     raw_hash = {
-      'contacts' => [info]
+      'contacts' => [info],
     }
     post('contacts', raw_hash)
   end
@@ -53,7 +53,7 @@ module Flapjack
 
   def create_contact_media(id, info)
     raw_hash = {
-      'media' => info
+      'media' => info,
     }
     post("contacts/#{id}/media", raw_hash)
   end
@@ -90,7 +90,7 @@ module Flapjack
 
   def create_contact_notification_rules(id, info)
     raw_hash = {
-      'notification_rules' => info
+      'notification_rules' => info,
     }
     post("contacts/#{id}/notification_rules", raw_hash)
   end
@@ -98,7 +98,7 @@ module Flapjack
   def create_entity(id, info)
     info['id'] ||= id
     raw_hash = {
-      'entities' => [info]
+      'entities' => [info],
     }
     post('entities', raw_hash)
   end
@@ -111,11 +111,11 @@ module Flapjack
   end
 
   def get(resource)
-    ::RestClient.get "#{api_uri}/#{resource}", :accept => :json
+    ::RestClient.get "#{api_uri}/#{resource}", accept: :json
   end
 
   def post(resource, raw_hash)
-    ::RestClient.post "#{api_uri}/#{resource}", raw_hash.to_json, :content_type => :json, :accept => :json
+    ::RestClient.post "#{api_uri}/#{resource}", raw_hash.to_json, content_type: :json, accept: :json
   end
 
   def delete(resource)

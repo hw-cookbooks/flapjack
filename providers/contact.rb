@@ -45,7 +45,7 @@ def notification_rules_defaults
     'critical_media' => nil,
     'unknown_blackhole' => nil,
     'warning_blackhole' => nil,
-    'critical_blackhole' => nil
+    'critical_blackhole' => nil,
   }
 end
 
@@ -75,9 +75,8 @@ action :create do
   end
   raw_media = @contact_info['media']
   if raw_media.is_a?(Hash)
-    media = raw_media.inject([]) do |media, (type, details)|
+    media = raw_media.each_with_object([]) do |(type, details), media|
       media << details.merge('type' => type)
-      media
     end
     previous_media = get_contact_media(@contact_id)
     if media_changed?(previous_media, media)
