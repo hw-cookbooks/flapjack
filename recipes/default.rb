@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: flapjack
+# Cookbook:: flapjack
 # Recipe:: default
 #
-# Copyright 2014, Heavy Water Operations, LLC.
+# Copyright:: 2014, Heavy Water Operations, LLC.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -33,7 +33,7 @@ when 'gem'
 when 'package'
   include_recipe 'flapjack::_package'
 else
-  fail "Unsupported Flapjack install method: #{install_method}"
+  raise "Unsupported Flapjack install method: #{install_method}"
 end
 
 if node['flapjack']['install_redis']

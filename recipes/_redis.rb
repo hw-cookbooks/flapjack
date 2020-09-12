@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: flapjack
+# Cookbook:: flapjack
 # Recipe:: _redis
 #
-# Copyright 2014, Heavy Water Operations, LLC.
+# Copyright:: 2014, Heavy Water Operations, LLC.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -26,8 +26,8 @@
 
 node.override['redisio']['servers'] = [
   {
-    'port' => node['flapjack']['config']['redis']['port']
-  }
+    'port' => node['flapjack']['config']['redis']['port'],
+  },
 ]
 
 include_recipe 'redisio::default'

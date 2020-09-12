@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: flapjack
+# Cookbook:: flapjack
 # Recipe:: _templates
 #
-# Copyright 2014, Heavy Water Operations, LLC.
+# Copyright:: 2014, Heavy Water Operations, LLC.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -36,7 +36,7 @@ end
 %w(
   email.html.erb
   email.text.erb
-).each do | template |
+).each do |template|
   cookbook_file template do
     path File.join(template_directory, template)
     owner node['flapjack']['user']

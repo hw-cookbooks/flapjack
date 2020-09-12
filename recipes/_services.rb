@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: flapjack
+# Cookbook:: flapjack
 # Recipe:: _services
 #
-# Copyright 2014, Heavy Water Operations, LLC.
+# Copyright:: 2014, Heavy Water Operations, LLC.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -38,8 +38,8 @@ node['flapjack']['services'].each do |service|
   runit_service service do
     options lazy {
       {
-        :user => node['flapjack']['user'],
-        :ruby_bin_dir => node['flapjack']['ruby_bin_dir'] || node['languages']['ruby']['bin_dir']
+        user: node['flapjack']['user'],
+        ruby_bin_dir: node['flapjack']['ruby_bin_dir'] || node['languages']['ruby']['bin_dir'],
       }
     }
     subscribes :restart, 'file[/etc/flapjack/flapjack_config.yaml]'

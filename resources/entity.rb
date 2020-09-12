@@ -2,4 +2,4 @@ actions :create
 
 default_action :create
 
-attribute :info, :kind_of => Hash, :default => {}
+attribute :info, kind_of: Hash, default: {}
