@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: flapjack
+# Cookbook:: flapjack
 # Recipe:: _config
 #
-# Copyright 2014, Heavy Water Operations, LLC.
+# Copyright:: 2014, Heavy Water Operations, LLC.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -47,7 +47,7 @@ data_bag_name = node['flapjack']['gateways']['data_bag']['name']
 chef_environment_specific = node['flapjack']['gateways']['data_bag']['chef_environment_specific']
 
 gateway_items = data_bag(data_bag_name).map do |item|
-  gateway = Chef::EncryptedDataBagItem.load(data_bag_name, item).to_hash
+  gateway = data_bag_item(data_bag_name, item).to_hash
   config = chef_environment_specific ? gateway[node.chef_environment] : gateway.dup
   if config.nil?
     next

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: flapjack
+# Cookbook:: flapjack
 # Recipe:: _contacts
 #
-# Copyright 2014, Heavy Water Operations, LLC.
+# Copyright:: 2014, Heavy Water Operations, LLC.
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -33,11 +33,11 @@ end
 contact_namespace = node['flapjack']['contacts']['data_bag']['namespace']
 
 contacts = case contact_namespace
-when nil
-  contact_items
-else
-  contact_items.map { |item| item[contact_namespace] }.compact
-end
+           when nil
+             contact_items
+           else
+             contact_items.map { |item| item[contact_namespace] }.compact
+           end
 
 contacts.each do |contact|
   resource_action = contact.delete('action') || 'create'
@@ -50,6 +50,6 @@ end
 if node['flapjack']['contacts']['manage_all_entity']
   contact_ids = contacts.map { |contact| contact['id'] }
   flapjack_entity 'ALL' do
-    info(:name => 'ALL', :contacts => contact_ids)
+    info(name: 'ALL', contacts: contact_ids)
   end
 end
