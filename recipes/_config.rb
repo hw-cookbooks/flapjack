@@ -65,7 +65,7 @@ environment['gateways'].merge!(gateways)
 config = { node['flapjack']['environment'] => environment }
 
 file '/etc/flapjack/flapjack_config.yaml' do
-  content config.to_yaml
+  content YAML.dump(config)
   owner node['flapjack']['user']
   group node['flapjack']['group']
   mode '0750'
